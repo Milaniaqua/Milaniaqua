@@ -1399,6 +1399,8 @@
     </footer>
 
     <!-- INTERACTIVE JAVASCRIPT -->
+ <!-- INTERACTIVE JAVASCRIPT WITH WHATSAPP INTEGRATION -->
+<!-- INTERACTIVE JAVASCRIPT WITH CUSTOM PREFILLED NOTES TEMPLATE -->
     <script>
         // 1. Mobile Navigation Hamburger Menu Toggle
         const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -1428,7 +1430,7 @@
             });
         });
 
-        // 2. Product Card Selection Logic
+        // 2. Product Card Selection Logic (Prefills your exact custom notes template)
         const productCards = document.querySelectorAll('.product-card');
         const productDropdown = document.getElementById('productSelect');
         const notesTextarea = document.getElementById('notes');
@@ -1438,9 +1440,12 @@
                 const size = this.getAttribute('data-size');
                 const price = this.getAttribute('data-price');
                 
-                productDropdown.value = size;
+                if (productDropdown) productDropdown.value = size;
                 
-                notesTextarea.value = `I am selecting the premium ${size.toUpperCase()} bottle tier valued at ${price} per unit.\n\n[Please leave your specific requirements here, leaving space for additional request details]`;
+                if (notesTextarea) {
+                    // Prefill exact requested template
+                    notesTextarea.value = `I am selecting the premium ${size.toUpperCase()} bottle tier valued at ${price} per unit.\n\n[Please leave your specific requirements here, leaving space for additional request details]`;
+                }
                 
                 document.getElementById('quote').scrollIntoView({ behavior: 'smooth' });
                 
@@ -1484,16 +1489,42 @@
             });
         });
 
-        // 5. Form Submission Handling
+        // 5. DIRECT WHATSAPP ORDER SUBMISSION
         document.getElementById('quoteForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const name = document.getElementById('fullName').value;
-            const size = document.getElementById('productSelect').value;
-            const qty = document.getElementById('quantity').value;
+            // YOUR PHONE NUMBER IN INTERNATIONAL FORMAT (NO +, NO SPACES)
+            const whatsappNumber = "254716097755"; 
+
+            // Extract form values
+            const name = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const size = document.getElementById('productSelect').value.toUpperCase();
+            const quantity = document.getElementById('quantity').value;
+            const notes = document.getElementById('notes').value.trim();
+
+            // Construct readable WhatsApp Message
+            let message = `🌊 *MILANI AQUA — NEW ORDER INQUIRY*\n\n`;
+            message += `👤 *Customer Name:* ${name}\n`;
+            message += `📧 *Email:* ${email}\n`;
+            message += `💧 *Selected Size:* ${size}\n`;
+            message += `📦 *Quantity Requested:* ${quantity} Units\n\n`;
             
-            alert(`Thank you, ${name}! Your custom allocation for ${qty} x ${size.toUpperCase()} bottles has been logged. Our logistics desk will contact you immediately.`);
-            this.reset();
+            message += `📋 *ADDITIONAL REQUIREMENTS & NOTES:*\n`;
+            if (notes) {
+                message += `${notes}\n\n`;
+            } else {
+                message += `_No additional details provided._\n\n`;
+            }
+
+            message += `⚡ *Sent via Milani Aqua Direct Web Order*`;
+
+            // Encode text for URL compatibility
+            const encodedMessage = encodeURIComponent(message);
+
+            // Open WhatsApp with prefilled message
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
         });
     </script>
 </body>
