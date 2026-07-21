@@ -40,6 +40,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- PWA MANIFEST & MOBILE METADATA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#09121E">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Milani Aqua">
     <!-- (Your existing CSS styles go right below this line) -->
     
     <style>
@@ -1526,6 +1533,14 @@
             const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
             window.open(whatsappURL, '_blank');
         });
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then((reg) => console.log('PWA Service Worker Registered!'))
+        .catch((err) => console.log('Service Worker registration failed: ', err));
+    });
+  }
+
     </script>
 </body>
 </html>
