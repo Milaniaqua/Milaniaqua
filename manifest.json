@@ -1,0 +1,22 @@
+{
+  "short_name": "Milani Aqua",
+  "name": "Milani Aqua | Premium Spring Water",
+  "description": "Order premium bottled spring water for homes, luxury events, and executive spaces in Kenya.",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#09121E",
+  "theme_color": "#09121E",
+  "display": "standalone",
+  "orientation": "portrait"
+}
